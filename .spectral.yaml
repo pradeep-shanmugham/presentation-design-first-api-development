@@ -1,0 +1,19 @@
+rules:
+  paths-kebab-case:
+    description: Paths should use kebab-case to seperate words and be ASCII alpha characters
+    message: 'The path {{property}} is not in kebab-case, seperate multiple words with a hyphen'
+    severity: warn
+    given: '$.paths[*]~'
+    then:
+      function: pattern
+      functionOptions:
+        match: '^(/[a-z-{}]+)+$'
+  schema-properties-camelcase:
+    description: All JSON Schema properties MUST be camelCase
+    severity: warn
+    message: 'Schema property: {{property}} is not in camelCase.'
+    given: '$..components.schemas.*.properties[*]~'
+    then:
+      function: casing
+      functionOptions:
+        type: camel
