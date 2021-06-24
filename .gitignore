@@ -1,1 +1,4 @@
 .vs/slnx.sqlite
+**/bin/*
+**/obj/*
+step3-mocking/user-interface/.vs/user-interface/v17/.suo
