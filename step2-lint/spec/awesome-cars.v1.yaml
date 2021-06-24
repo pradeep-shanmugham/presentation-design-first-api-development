@@ -25,6 +25,22 @@ servers:
   - url: 'https://awesome-cars.com'
     description: PROD
 paths:
+  /cars:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Cars
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car.v1.yaml'
+      operationId: get-cars
+      description: Retrieve all available cars
   '/carsSomething/{id}':
     get:
       summary: Retrieve a Car
