@@ -1,0 +1,360 @@
+openapi: 3.1.0
+info:
+  title: awesome-cars.v1
+  version: '1.0'
+  summary: API for the Awesome Cars Dealership
+  description: |-
+    This API is an API for the Car Dealership System of the Awesome Cars Dealership.
+
+    This API will allow integrating applications to
+    * See all cars currently available for purchase
+    * Make a booking to test drive a car
+  contact:
+    name: Pradeep
+    url: 'http://tempuri.org'
+    email: pradeep@awesome-cars.com
+servers:
+  - url: 'http://localhost:3100'
+    description: MOCK
+  - url: 'https://dev.awesome-cars.com'
+    description: DEV
+  - url: 'https://qa.awesome-cars.com'
+    description: QA
+  - url: 'https://staging.awesome-cars.com'
+    description: STAGING
+  - url: 'https://awesome-cars.com'
+    description: PROD
+paths:
+  '/cars/{id}':
+    get:
+      summary: Retrieve a Car
+      tags:
+        - Cars
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car.v1.yaml'
+              examples:
+                example-1:
+                  value:
+                    id: 1
+                    vinNo: 5YFBPRHE7FP210361
+                    type:
+                      id: 1
+                      make: TOYOTA
+                      model: Corolla
+                    regularPrice: 4000
+                    isInStock: true
+                    isOnSale: false
+                    saleDiscountPercentage: 20
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      operationId: 'get-cars-:id'
+      description: Retrieve a car
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: The unique id for a car
+    put:
+      summary: Create or Update a Car
+      operationId: put-cars-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car.v1.yaml'
+              examples:
+                example-1:
+                  value:
+                    id: 1
+                    vinNo: 5YFBPRHE7FP210361
+                    type:
+                      id: 1
+                      make: TOYOTA
+                      model: Corolla
+                    regularPrice: 4000
+                    isInStock: true
+                    isOnSale: false
+                    saleDiscountPercentage: 20
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      description: Create or update an existing car specificing the ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car.v1.yaml'
+            examples:
+              example-1:
+                value:
+                  id: 1
+                  vinNo: 5YFBPRHE7FP210361
+                  type:
+                    id: 1
+                    make: TOYOTA
+                    model: Corolla
+                  regularPrice: 4000
+                  isInStock: true
+                  isOnSale: false
+                  saleDiscountPercentage: 20
+      tags:
+        - Cars
+  '/bookings/{id}':
+    get:
+      summary: Retrieve a booking
+      tags:
+        - Bookings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking.v1.yaml'
+              examples:
+                example-1:
+                  value:
+                    id: 1
+                    dateAndTime: '2019-08-24T14:15:22Z'
+                    car:
+                      id: 1
+                      vinNo: 5YFBPRHE7FP210361
+                      type:
+                        id: 1
+                        make: TOYOTA
+                        model: Corolla
+                      regularPrice: 4000
+                      isInStock: true
+                      isOnSale: false
+                      saleDiscountPercentage: 20
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      operationId: get-bookings
+      description: Retrieve a specific test drive bookingby ID
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    put:
+      summary: Create or Update a Booking
+      operationId: put-bookings-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking.v1.yaml'
+              examples:
+                example-1:
+                  value:
+                    id: 1
+                    dateAndTime: '2019-08-24T14:15:22Z'
+                    car:
+                      id: 1
+                      vinNo: 5YFBPRHE7FP210361
+                      type:
+                        id: 1
+                        make: TOYOTA
+                        model: Corolla
+                      regularPrice: 4000
+                      isInStock: true
+                      isOnSale: false
+                      saleDiscountPercentage: 20
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      description: Create / update a specific test drive booking by ID
+      tags:
+        - Bookings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking.v1.yaml'
+            examples:
+              example-1:
+                value:
+                  id: 1
+                  dateAndTime: '2019-08-24T14:15:22Z'
+                  car:
+                    id: 1
+                    vinNo: 5YFBPRHE7FP210361
+                    type:
+                      id: 1
+                      make: TOYOTA
+                      model: Corolla
+                    regularPrice: 4000
+                    isInStock: true
+                    isOnSale: false
+                    saleDiscountPercentage: 20
+  /cars:
+    get:
+      summary: Retrieve all cars in the system
+      tags:
+        - Cars
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car.v1.yaml'
+      operationId: get-cars
+      description: Retrieve all available cars
+components:
+  schemas:
+    Car.v1.yaml:
+      title: Car.v1.yaml
+      type: object
+      description: This is the description of a car
+      examples:
+        - id: 1
+          vinNo: 5YFBPRHE7FP210361
+          type:
+            id: 1
+            make: TOYOTA
+            model: Corolla
+          regularPrice: 4000
+          isInStock: true
+          isOnSale: false
+          saleDiscountPercentage: 20
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          multipleOf: 1
+        vinNo:
+          type: string
+          example: 5YFBPRHE7FP210361
+          pattern: '^[A-Z0-9]+$'
+          minLength: 17
+          maxLength: 17
+        type:
+          $ref: '#/components/schemas/CarMakeAndModel.v1.yaml'
+        regularPrice:
+          type: number
+          example: 4000
+          minimum: 1
+          multipleOf: 10
+          maximum: 100000
+          format: double
+        isInStock:
+          type: boolean
+          default: true
+        isOnSale:
+          type: boolean
+          default: false
+        saleDiscountPercentage:
+          type: number
+          example: 20
+          maximum: 100
+          multipleOf: 1
+          minimum: 1
+          format: float
+      required:
+        - id
+        - vinNo
+        - type
+        - regularPrice
+        - isInStock
+        - isOnSale
+        - saleDiscountPercentage
+    Booking.v1.yaml:
+      title: Booking.v1.yaml
+      type: object
+      examples:
+        - id: 1
+          dateAndTime: '2019-08-24T14:15:22Z'
+          car:
+            id: 1
+            vinNo: 5YFBPRHE7FP210361
+            type:
+              id: 1
+              make: TOYOTA
+              model: Corolla
+            regularPrice: 4000
+            isInStock: true
+            isOnSale: false
+            saleDiscountPercentage: 20
+      description: A booking for a test drive
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          multipleOf: 1
+          description: A unique identifier for this booking
+        dateAndTime:
+          type: string
+          format: date-time
+          example: '2019-08-24T14:15:22Z'
+          description: The date and time for the test drive
+        car:
+          $ref: '#/components/schemas/Car.v1.yaml'
+      required:
+        - id
+        - dateAndTime
+        - car
+    CarMakeAndModel.v1.yaml:
+      title: CarMakeAndModel.v1.yaml
+      type: object
+      description: A car make and model
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          multipleOf: 1
+        make:
+          type: string
+          enum:
+            - TOYOTA
+            - MAZDA
+            - HONDA
+          example: TOYOTA
+        model:
+          type: string
+          example: Corolla
+          pattern: '^[A-Za-z0-9]+$'
+      required:
+        - id
+        - make
+        - model
+      examples:
+        - id: 1
+          make: TOYOTA
+          model: Corolla
+        - id: 2
+          make: TOYOTA
+          model: Camry
+        - id: 3
+          make: MAZDA
+          model: '3'
+  securitySchemes:
+    APIKey:
+      name: Key
+      type: apiKey
+      in: header
+tags:
+  - name: Bookings
+  - name: Cars
+security:
+  - APIKey: []
