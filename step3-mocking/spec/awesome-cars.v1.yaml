@@ -207,7 +207,7 @@ paths:
                     saleDiscountPercentage: 20
   /cars:
     get:
-      summary: Your GET endpoint
+      summary: Retrieve all cars in the system
       tags:
         - Cars
       responses:
