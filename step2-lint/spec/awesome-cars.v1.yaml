@@ -27,7 +27,7 @@ servers:
 paths:
   /cars:
     get:
-      summary: Your GET endpoint
+      summary: Retrieve all cars in the system
       tags:
         - Cars
       responses:
